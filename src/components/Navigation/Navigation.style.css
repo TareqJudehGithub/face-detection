@@ -1,0 +1,10 @@
+.sign-out {
+     display: flex;
+     justify-content: flex-end;
+     margin: 20px;
+     cursor: pointer;
+     text-decoration: underline;
+}
+.sign-out:hover{
+     font-weight: 500;
+}

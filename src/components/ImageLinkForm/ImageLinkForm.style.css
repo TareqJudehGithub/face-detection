@@ -1,0 +1,47 @@
+.container{
+     margin: 50px auto;
+}
+.text {
+     margin: 10px auto;
+     font-size: 18px;
+     
+}
+.image-link {
+     box-shadow: 2px 2px 5px gray;
+     margin:  100px 20%;
+     padding-top: 50px ;
+     border-radius: 10px;
+     background: #70e1f5;
+     /* fallback for old browsers */
+     background: -webkit-linear-gradient(to right, #ffd194, #70e1f5); 
+     background: linear-gradient(to right, #ffd194, #70e1f5);
+     padding: 5px; 
+    
+}
+.image-input {
+     margin: 50px auto;
+     padding: 15px;
+     border-radius: 5px;
+     width: 60%
+     
+}
+.btn {
+     cursor: pointer;
+     padding: 15px;
+     outline: none;
+     border-radius: 5px;
+     box-shadow: 2px 2px 5px gray;
+     transition-duration: all 0.5 ;
+     background: #74ebd5;  
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #ACB6E5, #74ebd5); 
+  background: linear-gradient(to right, #ACB6E5, #74ebd5);
+}
+.btn:focus{
+     outline: none;
+     border: none;
+     box-shadow: 1px 1px 2px gray;
+}
+.btn:hover {
+     transform: scale(.98);
+}
