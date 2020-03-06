@@ -4,7 +4,6 @@
 .text {
      margin: 10px auto;
      font-size: 18px;
-     
 }
 .image-link {
      box-shadow: 2px 2px 5px gray;
@@ -16,14 +15,12 @@
      background: -webkit-linear-gradient(to right, #ffd194, #70e1f5); 
      background: linear-gradient(to right, #ffd194, #70e1f5);
      padding: 5px; 
-    
 }
 .image-input {
      margin: 50px auto;
      padding: 15px;
      border-radius: 5px;
-     width: 60%
-     
+     width: 60% 
 }
 .btn {
      cursor: pointer;

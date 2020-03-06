@@ -1,12 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Navigation from "./components/Navigation/Navigation";
 import Logo from "./components/Logo/Logo";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import Rank from "./components/Rank/Rank";
+import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import Particles from 'react-particles-js';
-
+import Clarifai from "clarifai";
 import './App.css';
 
+//particles
 const particlesOptions = {
   particles: {
     number: {
@@ -18,9 +20,69 @@ const particlesOptions = {
       }
     }
   }
-
+//Clarifai
+const app = new Clarifai.App({
+  apiKey: "7d585dcb38dd43c6bdc72efb2b8bc84d"
+ });
 
 function App() {
+
+  //states
+  const [input, setInput] = useState("");
+  const [imageUrl, setImageUrl] = useState("")
+  const [box, setBox] = useState({});
+
+  const calculateFaceLocation = (data) => {
+    const ClarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
+    const image = document.getElementById("inputImage");
+    const width = Number(image.width);
+    const height = Number(image.height);
+    // console.log(width, height);
+    return (
+      { 
+      topRow: ClarifaiFace.top_row * height,
+      rightCol: width - (ClarifaiFace.right_col * width),
+      bottomRow: height - (ClarifaiFace.bottom_row * height),
+      leftCol: ClarifaiFace.left_col * width
+    },
+    {   
+        topRow: ClarifaiFace.top_row * height,
+        rightCol: width - (ClarifaiFace.right_col * width),
+        bottomRow: height - (ClarifaiFace.bottom_row * height),
+        leftCol: ClarifaiFace.left_col * width
+    }
+    )
+  }
+  //face_detect
+  const displayFaceBox = (box) => {
+    setBox(box);
+    console.log(box);
+  };
+
+  // url image input 
+  const onInputChangeHandler = (event) => {
+    setInput(event.target.value)
+  };
+
+  //submit image by pressing Enter key
+  const onKeySubmitHandler = (event) => {
+    if(event.key === "Enter"){
+      onClickSubmitHandler();
+      console.log("key event fired!");
+    }
+  }
+  //submit image by clicking mouse button
+  const onClickSubmitHandler = () => {
+   
+    setImageUrl(input)
+
+    app.models
+    .predict(
+      Clarifai.FACE_DETECT_MODEL, input)
+    .then(response => displayFaceBox(calculateFaceLocation(response))) 
+    .catch(err => console.log(err));
+  };
+
   return (
     <div className="App">
       <Particles
@@ -28,9 +90,13 @@ function App() {
           params={particlesOptions} />
       <Navigation />
        <Logo />
-      <ImageLinkForm />
+      <ImageLinkForm 
+      onInputChange={onInputChangeHandler} //input handler
+      onKey={onKeySubmitHandler}          // Enter key handler
+      onClick={onClickSubmitHandler}     //mouse click handler
+      />
       <Rank />
-      {/*<FaceRecognition /> */}
+      <FaceRecognition faceDetect={box} imageUrlProps={imageUrl} /> 
     </div>
   );
 }
