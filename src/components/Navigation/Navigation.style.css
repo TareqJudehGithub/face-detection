@@ -1,9 +1,11 @@
-.sign-out {
+.sign-in {
      display: flex;
      justify-content: flex-end;
-     margin: 20px;
+     /* margin: 100px auto; */
      cursor: pointer;
      text-decoration: underline;
+ 
+     
 }
 .sign-out:hover{
      font-weight: 500;

@@ -1,0 +1,40 @@
+.form-container {
+     box-shadow: 0px 0px 5px grey;
+     width: 250px;
+     height: 200px;
+     padding: 10px;
+     border-radius: 5px;
+     float: right;
+
+}
+
+.form-input {
+     box-shadow: 0px 0px 2px grey;
+     width: 225px !important;
+     margin-bottom: 5px;
+}
+.form-label{
+     float: left !important;
+}
+#signin-btn {
+     float: left !important;
+     background: #74ebd5;  
+     outline: none;
+     background: -webkit-linear-gradient(to right, #ACB6E5, #74ebd5); 
+     background: linear-gradient(to right, #ACB6E5, #74ebd5);
+     margin-top: 11px;
+}
+#signin-btn:focus {
+     outline: none;
+     border: none;
+}
+#signin-btn:active,
+#signin-btn:link
+ {
+     outline: none;
+}
+span{
+     margin-top: 10px;
+    margin-bottom: 0px;
+    font-size: 15px;
+}

@@ -1,9 +1,8 @@
-.container{
-     margin: 50px auto;
+.image-link-container{
+     margin: 150px auto 50px auto;
 }
 .text {
      margin: 10px auto;
-     font-size: 18px;
 }
 .image-link {
      box-shadow: 2px 2px 5px gray;
@@ -18,13 +17,13 @@
 }
 .image-input {
      margin: 50px auto;
-     padding: 15px;
+     padding: 5px;
      border-radius: 5px;
      width: 60% 
 }
-.btn {
+#detect-btn {
      cursor: pointer;
-     padding: 15px;
+     padding: 5.5px;
      outline: none;
      border-radius: 5px;
      box-shadow: 2px 2px 5px gray;
@@ -34,11 +33,11 @@
   background: -webkit-linear-gradient(to right, #ACB6E5, #74ebd5); 
   background: linear-gradient(to right, #ACB6E5, #74ebd5);
 }
-.btn:focus{
+#detect-btn:focus{
      outline: none;
      border: none;
      box-shadow: 1px 1px 2px gray;
 }
-.btn:hover {
+#detect-btn:hover {
      transform: scale(.98);
 }

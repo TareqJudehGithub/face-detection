@@ -4,6 +4,7 @@ import Logo from "./components/Logo/Logo";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import Rank from "./components/Rank/Rank";
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
+
 import Particles from 'react-particles-js';
 import Clarifai from "clarifai";
 import './App.css';
@@ -32,6 +33,8 @@ function App() {
   const [imageUrl, setImageUrl] = useState("")
   const [box, setBox] = useState({});
 
+  //clear input field:
+  
   const calculateFaceLocation = (data) => {
     const ClarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
     const image = document.getElementById("inputImage");
@@ -61,7 +64,7 @@ function App() {
 
   // url image input 
   const onInputChangeHandler = (event) => {
-    setInput(event.target.value)
+    setInput(event.target.value);
   };
 
   //submit image by pressing Enter key
@@ -93,10 +96,13 @@ function App() {
       <ImageLinkForm 
       onInputChange={onInputChangeHandler} //input handler
       onKey={onKeySubmitHandler}          // Enter key handler
-      onClick={onClickSubmitHandler}     //mouse click handler
+      onClick={onClickSubmitHandler}
+         //mouse click handler
+
       />
       <Rank />
       <FaceRecognition faceDetect={box} imageUrlProps={imageUrl} /> 
+     
     </div>
   );
 }

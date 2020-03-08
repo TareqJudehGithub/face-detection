@@ -7,7 +7,7 @@ const Logo = () => {
 
      return(
           <div className="logo">
-               <Tilt className="Tilt" options={{ max : 35 }} style={{ height: 125, width: 125 }} >
+               <Tilt className="Tilt" options={{ max : 35 }} style={{ height: 115, width: 100 }} >
                     <div className="Tilt-inner">
                     <img className="brain" src={Brain} alt="brain"/>
                     </div>
