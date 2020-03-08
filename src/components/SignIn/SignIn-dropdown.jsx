@@ -21,7 +21,7 @@ const SignIn = () => {
                     variant="outline-secondary" size="sm" id="signin-btn"
                     >Submit</Button>
                    
-                    <span className="register-link">New user? {"\n"} Sign up now!</span>
+                    <span className="register-link">New user? Sign up now!</span>
                     </div>
                     
                     
