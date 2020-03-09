@@ -1,12 +1,19 @@
-.sign-in {
+.nav {
      display: flex;
-     justify-content: flex-end;
+   
      /* margin: 100px auto; */
      cursor: pointer;
-     text-decoration: underline;
- 
-     
+     text-decoration: none;
+     width: fit-content;
+     list-style: none;
+     justify-content: flex-end;
+     float: right;
+     padding: 5px;
 }
-.sign-out:hover{
-     font-weight: 500;
+.link {
+     padding-right: 10px;
+}
+.link:hover{
+     font-weight: 600;
+     border: 1px solid yellow;
 }

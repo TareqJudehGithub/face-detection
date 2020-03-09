@@ -4,10 +4,14 @@ import Logo from "./components/Logo/Logo";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import Rank from "./components/Rank/Rank";
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
-
+import {Route, Switch} from "react-router-dom";
 import Particles from 'react-particles-js';
 import Clarifai from "clarifai";
 import './App.css';
+
+import SignIn from './components/SignIn/SignIn-dropdown';
+import SignUp from './components/SignUp/SignUp';
+
 
 //particles
 const particlesOptions = {
@@ -25,13 +29,26 @@ const particlesOptions = {
 const app = new Clarifai.App({
   apiKey: "7d585dcb38dd43c6bdc72efb2b8bc84d"
  });
-
+const Home = () => {
+  return (
+    <div>
+   
+  </div>
+  )
+  
+}
 function App() {
 
   //states
   const [input, setInput] = useState("");
   const [imageUrl, setImageUrl] = useState("")
   const [box, setBox] = useState({});
+  const [signInStatus, setSignInStatus] = useState(false);
+  // const [route, setRoute] = useState("signedOut")
+  
+   const changeSignInSignOutHandler = () => {
+   setSignInStatus(true);
+  };
 
   //clear input field:
   
@@ -40,7 +57,7 @@ function App() {
     const image = document.getElementById("inputImage");
     const width = Number(image.width);
     const height = Number(image.height);
-    // console.log(width, height);
+  
     return (
       { 
       topRow: ClarifaiFace.top_row * height,
@@ -87,23 +104,45 @@ function App() {
   };
 
   return (
+   
     <div className="App">
       <Particles
           className="particles" 
           params={particlesOptions} />
-      <Navigation />
-       <Logo />
-      <ImageLinkForm 
-      onInputChange={onInputChangeHandler} //input handler
-      onKey={onKeySubmitHandler}          // Enter key handler
-      onClick={onClickSubmitHandler}
-         //mouse click handler
+      <Navigation 
+      onSignIn={changeSignInSignOutHandler}/>
+      <Logo />
 
-      />
-      <Rank />
-      <FaceRecognition faceDetect={box} imageUrlProps={imageUrl} /> 
-     
+     {/* {
+      route === "signIn"
+      ? */}
+      {/* <SignIn 
+      onSignIn={changeSignInSignOutHandler}/>
+      : */}
+      {/* <div>  */}
+        
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/signin" component={SignIn}/>
+          <Route path="/signUp" component={SignUp}/>
+        </Switch>
+      
+        <ImageLinkForm 
+          onInputChange={onInputChangeHandler} 
+          onKey={onKeySubmitHandler}         
+          onClick={onClickSubmitHandler}/>      
+        {
+          signInStatus
+          ?
+          <Rank />
+          : null
+        }
+       
+        <FaceRecognition faceDetect={box} imageUrlProps={imageUrl} />  
+      {/* </div> */}
+    {/* }  */}
     </div>
+   
   );
 }
 

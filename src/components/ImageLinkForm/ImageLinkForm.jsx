@@ -18,7 +18,8 @@ const ImageLinkForm = ({ onInputChange, onKey, onClick }) => {
                     onChange={onInputChange}
                     onKeyPress={onKey}
                     type="text"
-                    placeholder="insert image link here.."/>
+                    placeholder="insert image link here.."
+                    />
                     
                     <button
                     id="detect-btn"
