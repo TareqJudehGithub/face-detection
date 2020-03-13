@@ -2,11 +2,10 @@ import React from 'react';
 import "./ImageLinkForm.style.css";
 
 
-
 const ImageLinkForm = ({ onInputChange, onKey, onClick }) => {
      
      return (
-          <div className="image-link-container">
+          <div className="image-link-container center">
               
                <div className="image-link">
                     <p className="text">

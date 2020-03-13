@@ -12,7 +12,6 @@ import './App.css';
 import SignIn from './components/SignIn/SignIn-dropdown';
 import SignUp from './components/SignUp/SignUp';
 
-
 //particles
 const particlesOptions = {
   particles: {
@@ -43,15 +42,47 @@ function App() {
   const [input, setInput] = useState("");
   const [imageUrl, setImageUrl] = useState("")
   const [box, setBox] = useState({});
-  const [signInStatus, setSignInStatus] = useState(false);
-  // const [route, setRoute] = useState("signedOut")
+  const [user, setUser] = useState(
+     {  
+    id: "",
+    name: "",
+    email: "",
+   
+    entries: 0,
+    joined: ""
+  })
   
-   const changeSignInSignOutHandler = () => {
-   setSignInStatus(true);
+  // const [signInStatus] = useState(false);
+
+  const [route, setRoute] = useState("signin");
+  const [isSignedIn, setIsSignedIn] = useState(true);
+
+  const routeChangeHandler = (currentRoute) => {
+    if (currentRoute === "home" ) {
+      setIsSignedIn(false);
+    }
+    else if (currentRoute ==="signin" || currentRoute === "signOut" 
+    || currentRoute === "signUp"){
+      setIsSignedIn(true);
+    } 
+
+    setRoute(currentRoute);
+    console.log("Current Route: " , currentRoute);
+  }
+  //clear image link input field:
+
+
+  const loadUser = (userData)  => {
+    setUser({  
+      id: userData.id,
+      name: userData.name,
+      email: userData.email,
+     
+      entries: userData.entries,
+      joined: userData.joined
+    })
   };
 
-  //clear input field:
-  
   const calculateFaceLocation = (data) => {
     const ClarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
     const image = document.getElementById("inputImage");
@@ -91,9 +122,9 @@ function App() {
       console.log("key event fired!");
     }
   }
+
   //submit image by clicking mouse button
   const onClickSubmitHandler = () => {
-   
     setImageUrl(input)
 
     app.models
@@ -106,44 +137,56 @@ function App() {
   return (
    
     <div className="App">
+      
       <Particles
           className="particles" 
           params={particlesOptions} />
-      <Navigation 
-      onSignIn={changeSignInSignOutHandler}/>
       <Logo />
+      <Navigation 
+      routeChange={routeChangeHandler}
 
-     {/* {
-      route === "signIn"
-      ? */}
-      {/* <SignIn 
-      onSignIn={changeSignInSignOutHandler}/>
-      : */}
-      {/* <div>  */}
-        
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/signin" component={SignIn}/>
-          <Route path="/signUp" component={SignUp}/>
-        </Switch>
-      
-        <ImageLinkForm 
-          onInputChange={onInputChangeHandler} 
-          onKey={onKeySubmitHandler}         
-          onClick={onClickSubmitHandler}/>      
-        {
-          signInStatus
-          ?
-          <Rank />
-          : null
-        }
+      isSignedIn={isSignedIn}
+      />
+      { 
+        route === "signin" 
+              ?
+              <SignIn routeChange={routeChangeHandler} />
+              :
+        route === "signUp"
+              ?
+              <SignUp routeChange={routeChangeHandler}/>
+        :
+     
+        route === "home" || route ==="signOut"
+        ?  
+        <div>      
+
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route path="/signin-signup" component={SignIn}/>
+              <Route path="/signUp" component={SignUp}/>
+            </Switch>
+          
+            <ImageLinkForm 
+              onInputChange={onInputChangeHandler} 
+              onKey={onKeySubmitHandler}         
+              onClick={onClickSubmitHandler}/>      
+            {/* {
+              signInStatus
+              ?
+              <Rank />
+              : null
+            } */}
+               <Rank />
+          
+            <FaceRecognition faceDetect={box} imageUrlProps={imageUrl} />       
        
-        <FaceRecognition faceDetect={box} imageUrlProps={imageUrl} />  
-      {/* </div> */}
-    {/* }  */}
-    </div>
-   
+        </div>
+        :
+        <h2>error rendering webpage</h2>
+
+          }
+  </div>
   );
 }
-
 export default App;

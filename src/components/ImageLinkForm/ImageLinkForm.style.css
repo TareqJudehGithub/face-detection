@@ -1,25 +1,27 @@
 .image-link-container{
-     margin: 100px auto 50px auto;
+     margin: 25px auto 50px auto;
+     
+     padding: 0;
+   
 }
 .text {
      margin: 10px auto;
 }
 .image-link {
      box-shadow: 2px 2px 5px gray;
-     margin:  100px 20%;
-     padding-top: 50px ;
+      margin:  100px auto; 
      border-radius: 10px;
      background: #70e1f5;
      /* fallback for old browsers */
      background: -webkit-linear-gradient(to right, #ffd194, #70e1f5); 
      background: linear-gradient(to right, #ffd194, #70e1f5);
-     padding: 5px; 
+     padding: 15px 25px; 
 }
 .image-input {
-     margin: 50px auto;
+     margin: 35px auto;
      padding: 5px;
      border-radius: 5px;
-     width: 60% 
+     width: 80% 
 }
 #detect-btn {
      cursor: pointer;

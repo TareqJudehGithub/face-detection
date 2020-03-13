@@ -1,119 +1,65 @@
-import React, {useState} from "react";
+import React from "react";
 import "./Navigation.style.css"
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
-const Navigation = () => {
-     const [signInStatus, setSignInStatus] = useState(true);
+
+const Navigation = ({history, routeChange, isSignedIn}) => {
+   
      return (
-<div>
-     
-{
-          signInStatus
-          ?
-          <nav>
-                <ul className="nav" >
+          <div>
+               {
+               isSignedIn !== true
+               ?
+               <nav>
+                    <ul className="nav" >      
+                         <Link to="/"
+                              className="link" 
+                              onClick={() => {
+                                   routeChange("signOut");
+                                   console.log("Sign out")}}>
+                              Sign Out
+                         </Link>
 
-                    <Link
-                         className="link" 
-                         to="/SignIn"
-                         onClick={() => {setSignInStatus(false)
-                              console.log("to Sign in")}}
-                        >                  
-                         Sign In               
+                         <Link to="/"
+                              className="link"
+                              onClick={() => {
+                              routeChange("home");
+                              console.log("home");
+                              }}>
+                              Home
+                         </Link>
+                         
+                    </ul>
+               </nav>
+               :
+               <nav>
+               <ul className="nav" >
+
+               <li
+                    className="link" 
+                         // to="/signin"
+                    onClick={() => {
+                         history.push("/signin");
+                         // dispatch(toggleHidden());
+                                   
+                         routeChange("signin");
+                         console.log("to Sign in");}}
+                    >                  
+                    Sign In               
+               </li>
+               <Link to="/"
+                    onClick={() => {
+                         routeChange("home");
+                         console.log("home");
+                         }}>
+                    Home
                     </Link>
-                    <Link to="/"
-                     className="link" >Home</Link>
-                  
-
-               </ul>
-
-          </nav>
-          :
-          <nav>
-               <ul className="nav" >      
-                    <Link to="/"
-                           className="link" 
-                         onClick={() => {setSignInStatus(true);
-                              console.log("Sign out")}}>
-                         Sign Out
-                    </Link>
-                    <Link to="/"
-                     className="link" >Home</Link>
-                    
-               </ul>
-
-          </nav>}
-
-     </div>
-     )
-}
-export default Navigation;
-
-
-
-     // const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
-     // let {hidden, SignMeUp}= state;
-     // const [route] = useState("signIn");
-     
-//  const signInOff = () => {
-    
-//  }
-// const INITIAL_STATE = {
-//      hidden: true,
-//      SignMeUp: true
-// };
-// const toggleHidden = hidden => ({
-//      type: "TOGGLE_HIDDEN",
-//      payload: hidden
-// });
-// const toggleSignUp = on => ({
-//      type: "TOGGLE_SignUp",
-//      payload: on
-// });
-
-// const reducer = (state, action) => {
-//      switch(action.type){
-//           case "TOGGLE_HIDDEN":
-//           return {
-//                ...state,
-//                hidden: !state.hidden
-//           };
-//           case "TOGGLE_SignUp":
-//                return{
-//                     ...state,
-//                     SignMeUp: !state.SignMeUp
-//                }
-//           default:
-//                return state;
-//      };
-// };
-
-
-
-          //       {
-          //           hidden 
-          //           ?
-          //           null
-          //           :
-          // //     console.log("hello")
-          //                (route === "signIn"
-          //                ?
-          //                <Link to="/SignIn"/>
-          //                :
-          //                <SignUp />)
                
-          //      } 
-          //      {/* {
-          //           SignMeUp
-          //           ?
-          //           null
-          //           :
-          //           <SignUp />
-          //      } 
+               </ul>
 
-          
-                         //  <li className="link"
-                         // onClick={() => dispatch(toggleSignUp(),
-                         //      console.log("sign up dispatch"))}>
-                         //      New user?
-                         // </li> 
+               </nav>
+               }
+          </div>
+          )
+}
+export default withRouter(Navigation);
