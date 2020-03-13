@@ -23,7 +23,7 @@ const Navigation = ({history, routeChange, isSignedIn}) => {
                          <Link to="/"
                               className="link"
                               onClick={() => {
-                              routeChange("home");
+                              routeChange("homepage");
                               console.log("home");
                               }}>
                               Home
@@ -49,7 +49,7 @@ const Navigation = ({history, routeChange, isSignedIn}) => {
                </li>
                <Link to="/"
                     onClick={() => {
-                         routeChange("home");
+                         routeChange("homepage");
                          console.log("home");
                          }}>
                     Home

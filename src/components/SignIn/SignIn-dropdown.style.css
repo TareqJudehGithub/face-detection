@@ -4,7 +4,7 @@
      height: 250px;
      padding: 10px;
      border-radius: 5px;
-     margin: 0 auto;
+     margin: 25px auto;
      font-size: 16px;
 }
 .title{
@@ -38,9 +38,11 @@
  {
      outline: none;
 }
-span{
-     padding: 2px;
-     font-size: 13px;
-     padding: 5%;
+.register-link{
+     padding: 5px;
+     font-size: 14px;
+     padding-left: 16px;
+     padding-right: 15px;
 }
+
 

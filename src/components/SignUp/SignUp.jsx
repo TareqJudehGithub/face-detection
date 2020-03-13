@@ -18,8 +18,6 @@ const SignUp = ({routeChange, history}) => {
           joined: ""
         });
 
-       
-
         const loadUser = (userData)  => {
 
           setUser({  
@@ -44,7 +42,7 @@ const SignUp = ({routeChange, history}) => {
 
      const onSubmitSignUp = () => {
 
-          console.log(name, email, userPassword);
+          console.log(userName, userEmail, userPassword);
           fetch("http://localhost:4000/profile/signup", {
                method: "post",
                headers: {"Content-Type": "application/json"},
@@ -78,7 +76,7 @@ const SignUp = ({routeChange, history}) => {
                <nav></nav>
                <Form className="sign-up-form">
 
-                    <p className="title">Sign In</p>
+                    <p className="title">Sign Up</p>
                     <Form.Label>Name</Form.Label>
                     <Form.Control 
                     className="form-input"

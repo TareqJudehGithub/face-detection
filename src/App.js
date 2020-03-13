@@ -64,7 +64,11 @@ function App() {
     else if (currentRoute ==="signin" || currentRoute === "signOut" 
     || currentRoute === "signUp"){
       setIsSignedIn(true);
-    } 
+    }
+    if (currentRoute === "homepage" ) {
+      setIsSignedIn(true);
+    }
+    
 
     setRoute(currentRoute);
     console.log("Current Route: " , currentRoute);
@@ -157,7 +161,7 @@ function App() {
               <SignUp routeChange={routeChangeHandler}/>
         :
      
-        route === "home" || route ==="signOut"
+        route === "home" || route ==="signOut" || route === "homepage"
         ?  
         <div>      
 
