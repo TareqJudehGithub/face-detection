@@ -42,21 +42,32 @@ function App() {
   const [input, setInput] = useState("");
   const [imageUrl, setImageUrl] = useState("")
   const [box, setBox] = useState({});
-  const [user, setUser] = useState(
-     {  
+  const [route, setRoute] = useState("signin");
+  const [isSignedIn, setIsSignedIn] = useState(true);
+  // const [signInStatus] = useState(false);
+
+  //signUp
+  const [user, setUser] = useState({  
     id: "",
     name: "",
     email: "",
-   
+    password: "",
     entries: 0,
     joined: ""
-  })
+  });
   
-  // const [signInStatus] = useState(false);
-
-  const [route, setRoute] = useState("signin");
-  const [isSignedIn, setIsSignedIn] = useState(true);
-
+  const loadUser = (userData)  => {
+    setUser({  
+      id: userData.id,
+      name: userData.name,
+      email: userData.email,
+      password: userData.password,
+      entries: userData.entries,
+      joined: userData.joined
+    })
+    console.log(userData);
+  };
+  
   const routeChangeHandler = (currentRoute) => {
     if (currentRoute === "home" ) {
       setIsSignedIn(false);
@@ -74,18 +85,6 @@ function App() {
     console.log("Current Route: " , currentRoute);
   }
   //clear image link input field:
-
-
-  const loadUser = (userData)  => {
-    setUser({  
-      id: userData.id,
-      name: userData.name,
-      email: userData.email,
-     
-      entries: userData.entries,
-      joined: userData.joined
-    })
-  };
 
   const calculateFaceLocation = (data) => {
     const ClarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
@@ -134,9 +133,25 @@ function App() {
     app.models
     .predict(
       Clarifai.FACE_DETECT_MODEL, input)
-    .then(response => displayFaceBox(calculateFaceLocation(response))) 
+    .then(response => {
+      if(response){
+        fetch("http://localhost:4000/image", {
+          method: "put",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({
+            id: user.id
+          })
+        })
+        .then(response => response.json())
+        .then(count => {
+          setUser({...user, entries: count}) 
+            }   
+        )}
+      displayFaceBox(calculateFaceLocation(response))    
+    })
     .catch(err => console.log(err));
-  };
+    };
+      
 
   return (
    
@@ -154,11 +169,14 @@ function App() {
       { 
         route === "signin" 
               ?
-              <SignIn routeChange={routeChangeHandler} />
+              <SignIn
+               routeChange={routeChangeHandler}
+               signUpUser={loadUser} />
               :
         route === "signUp"
               ?
-              <SignUp routeChange={routeChangeHandler}/>
+              <SignUp routeChange={routeChangeHandler}
+                      signUpUser={loadUser}/>
         :
      
         route === "home" || route ==="signOut" || route === "homepage"
@@ -175,13 +193,11 @@ function App() {
               onInputChange={onInputChangeHandler} 
               onKey={onKeySubmitHandler}         
               onClick={onClickSubmitHandler}/>      
-            {/* {
-              signInStatus
-              ?
-              <Rank />
-              : null
-            } */}
-               <Rank />
+           
+              <Rank 
+              name={user.name}
+              counter={user.entries}/>
+              
           
             <FaceRecognition faceDetect={box} imageUrlProps={imageUrl} />       
        

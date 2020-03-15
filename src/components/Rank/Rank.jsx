@@ -1,11 +1,11 @@
 import React from "react";
 import "./Rank.style.css";
 
-const Rank = () => {
+const Rank = ({ name, counter }) => {
      return (
           <div>
                <div className="container">
-                    {" (user), you have uploaded (count number)"}
+                    {` ${name}, you have uploaded ${counter}`}
                </div>
           </div>
      )

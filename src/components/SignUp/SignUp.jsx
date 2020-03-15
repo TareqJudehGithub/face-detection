@@ -4,32 +4,12 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "./SignUp.style.css";
 
-const SignUp = ({routeChange, history}) => {
+const SignUp = ({routeChange, history, signUpUser}) => {
 
      const [userName, setuserName] = useState("");
      const [userEmail, setUserEmail] = useState("");
      const [userPassword, setUserPassword] = useState("");
-
-     const [user, setUser] = useState({
-          id: "",
-          name: "",
-          email: "",
-          entries: 0,
-          joined: ""
-        });
-
-        const loadUser = (userData)  => {
-
-          setUser({  
-            id: userData.id,
-            name: userData.userName,
-            email: userData.email,
-           
-            entries: userData.entries,
-            joined: userData.joined
-          })
-        };
-
+     
      const signUpNameChange = (event) => {
           setuserName(event.target.value)
      };
@@ -40,7 +20,7 @@ const SignUp = ({routeChange, history}) => {
           setUserPassword(event.target.value)
      };
 
-     const onSubmitSignUp = () => {
+     const onSubmitSignUp = (event) => {
 
           console.log(userName, userEmail, userPassword);
           fetch("http://localhost:4000/profile/signup", {
@@ -53,28 +33,27 @@ const SignUp = ({routeChange, history}) => {
                })        
           })
           .then(response => response.json())
-          .then(userData => {
-               if(userData){
-                    loadUser(user)
-                    history.push("/");
-                    console.log(user, userData);
+          .then(newUser => {
+               if(newUser){
+                    
+                    signUpUser(newUser)      
+                    console.log("Sign-Up was successful!");
+                    console.log("=> homepage");
+                    console.log(userName, userEmail, userPassword);
                     routeChange("home");
+                     history.push("/");              
                }
-               else{
-                    alert("Error creating new user!")
-                    routeChange("signUp");
-                    history.push("/signUp");
-               }
-             
+              
           })
           .catch(err => console.log(err));
-
-     }
+          event.preventDefault();
+     };
 
      return(
           <div className="form-signup-container" id="sign-up-form">
                <nav></nav>
-               <Form className="sign-up-form">
+               <Form className="sign-up-form"
+               onSubmit={onSubmitSignUp}>
 
                     <p className="title">Sign Up</p>
                     <Form.Label>Name</Form.Label>
@@ -105,13 +84,11 @@ const SignUp = ({routeChange, history}) => {
                     onChange={signUpPasswordChange}/>
 
                     <Button 
+                    type="submit"
                     variant="outline-secondary" size="sm" id="signmeup-btn"
-                    onClick={() => {
-                         onSubmitSignUp();
-                         console.log("=> homepage");
-                         history.push("/");
-                         routeChange("home");
-                         }}
+              
+                  
+                    
                     >Sign Up</Button>              
                </Form>
           </div>

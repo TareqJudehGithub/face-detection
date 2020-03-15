@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import "./SignIn-dropdown.style.css"
 import {withRouter, Link} from "react-router-dom";
 
-const SignIn = ({ history, routeChange }) => {
+const SignIn = ({ history, routeChange, signUpUser }) => {
     const [signInEmail, setsignInEmail] = useState("");
     const [signInPassword, setsignInPassword] = useState("");
 
@@ -15,7 +15,7 @@ const SignIn = ({ history, routeChange }) => {
      const onPasswordChange = (event) => {
           setsignInPassword(event.target.value);
      };
-     const onsubmitSigninHandler = () => {
+     const onsubmitSigninHandler = (event) => {
           console.log(signInEmail, signInPassword);
           fetch("http://localhost:4000/profile/signin", {
                //posting email and password to the DB:
@@ -27,27 +27,31 @@ const SignIn = ({ history, routeChange }) => {
                })
           })
           .then(respone => respone.json())
-          .then(data => {
-               if(data === "Signing was successful!!") {             
+          .then(user => {
+               if(user.id) {   
+
                     history.push("/");
-                    console.log("sign-up was successful!");
+                    signUpUser(user);
                     routeChange("home");                     
+                    console.log("sign-up was successful!");
                }
                else{
                     alert("Error! Invalid username/password.");
                     console.log("sign-up was failed!");
-                    routeChange("signin");
-                    history.push("/signin");
+                    // routeChange("signin");
+                    // history.push("/signin");
                }         
           })
-          .catch(err => console.log(err));       
+          .catch(err => console.log(err));  
+          event.preventDefault();    
      };
 
      return(
          
           <div className="form-signin-container center" id="Form">
              
-               <Form>
+               <Form onSubmit={onsubmitSigninHandler}>
+                    
                     <p className="title">Sign In</p>
                     <Form.Label className="form-label">Email address</Form.Label>
                     <Form.Control
@@ -56,7 +60,8 @@ const SignIn = ({ history, routeChange }) => {
                     size="sm" type="email" 
                     placeholder="Enter 
                     email" 
-                    width="10"/>
+                    width="10"
+                    required/>
                     <Form.Text className="text-muted">
                          
                     </Form.Text>            
@@ -66,29 +71,24 @@ const SignIn = ({ history, routeChange }) => {
                     className="form-input" 
                     size="sm" 
                     type="password" 
-                    placeholder="Password" />             
+                    placeholder="Password"
+                    required />             
                    
                     <Button 
                     variant="outline-secondary" size="sm" id="signin-btn"
-                    
-                    onClick={() => {   
-                         routeChange("home");
-                         onsubmitSigninHandler();
-                         history.push("/");                            
-                         }}>
+                    type="submit"
+                    onSubmit={() => history.push("/")}>
                          Sign In
                     </Button>
                    
-                    <span className="register-link"
-                     onClick={() => { 
-                    }}                  
+                    <span className="register-link"                 
                     >New user? Sign up 
                     <Link to="/signUp"
                     onClick={() => {
                          routeChange("signUp");
                          history.push("/signUp");
                          console.log("to Sign Up"); 
-               }}
+                    }}
                     > now!</Link>     
                     </span>               
                </Form>         
