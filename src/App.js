@@ -36,6 +36,7 @@ const Home = () => {
   )
   
 }
+
 function App() {
 
   //states
@@ -79,12 +80,22 @@ function App() {
     if (currentRoute === "homepage" ) {
       setIsSignedIn(true);
     }
-    
 
     setRoute(currentRoute);
     console.log("Current Route: " , currentRoute);
   }
+
   //clear image link input field:
+  const clearUser = () => {
+    setImageUrl("");
+    setUser({
+      name: "",
+      email: "",
+      password: ""
+    })
+    setRoute("home");
+    setInput("");
+  };
 
   const calculateFaceLocation = (data) => {
     const ClarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
@@ -145,8 +156,9 @@ function App() {
         .then(response => response.json())
         .then(count => {
           setUser({...user, entries: count}) 
-            }   
-        )}
+        })
+        .catch(err => console.log(err));
+      }
       displayFaceBox(calculateFaceLocation(response))    
     })
     .catch(err => console.log(err));
@@ -163,15 +175,17 @@ function App() {
       <Logo />
       <Navigation 
       routeChange={routeChangeHandler}
-
+      name={user.name}
       isSignedIn={isSignedIn}
+      resetUserSession={clearUser}
       />
       { 
         route === "signin" 
               ?
               <SignIn
                routeChange={routeChangeHandler}
-               signUpUser={loadUser} />
+               signUpUser={loadUser}
+               name={user.name} />
               :
         route === "signUp"
               ?
@@ -188,17 +202,16 @@ function App() {
               <Route path="/signin-signup" component={SignIn}/>
               <Route path="/signUp" component={SignUp}/>
             </Switch>
-          
+                
+            <Rank 
+              name={user.name}
+              counter={user.entries}/>
+
             <ImageLinkForm 
               onInputChange={onInputChangeHandler} 
               onKey={onKeySubmitHandler}         
               onClick={onClickSubmitHandler}/>      
            
-              <Rank 
-              name={user.name}
-              counter={user.entries}/>
-              
-          
             <FaceRecognition faceDetect={box} imageUrlProps={imageUrl} />       
        
         </div>

@@ -3,10 +3,11 @@ import "./Navigation.style.css"
 import { Link, withRouter } from "react-router-dom";
 
 
-const Navigation = ({history, routeChange, isSignedIn}) => {
+const Navigation = ({history, routeChange, isSignedIn, name, resetUserSession}) => {
    
      return (
           <div>
+               
                {
                isSignedIn !== true
                ?
@@ -16,7 +17,10 @@ const Navigation = ({history, routeChange, isSignedIn}) => {
                               className="link" 
                               onClick={() => {
                                    routeChange("signOut");
-                                   console.log("Sign out")}}>
+                                   history.push("/")
+                                   resetUserSession()
+                                   console.log("Signed out successfully!");
+                              }}>
                               Sign Out
                          </Link>
 
@@ -28,6 +32,14 @@ const Navigation = ({history, routeChange, isSignedIn}) => {
                               }}>
                               Home
                          </Link>
+                         <li><span>welcome {name}</span>
+                              {/* <select className="welcome">
+                              
+                              <option>{name}</option>
+                              <option>Log out</option>
+                              <option>Manage Account</option>
+                              </select> */}
+                         </li>
                          
                     </ul>
                </nav>

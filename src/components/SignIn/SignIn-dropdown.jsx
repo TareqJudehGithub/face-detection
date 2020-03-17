@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import "./SignIn-dropdown.style.css"
 import {withRouter, Link} from "react-router-dom";
 
-const SignIn = ({ history, routeChange, signUpUser }) => {
+const SignIn = ({ history, routeChange, signUpUser, name }) => {
     const [signInEmail, setsignInEmail] = useState("");
     const [signInPassword, setsignInPassword] = useState("");
 
@@ -33,7 +33,9 @@ const SignIn = ({ history, routeChange, signUpUser }) => {
                     history.push("/");
                     signUpUser(user);
                     routeChange("home");                     
-                    console.log("sign-up was successful!");
+                    console.log(`sign-up was successful!`);
+                    alert("Welcome!")
+                    
                }
                else{
                     alert("Error! Invalid username/password.");
