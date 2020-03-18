@@ -6,7 +6,7 @@ import Rank from "./components/Rank/Rank";
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import {Route, Switch} from "react-router-dom";
 import Particles from 'react-particles-js';
-import Clarifai from "clarifai";
+// import Clarifai from "clarifai";
 import './App.css';
 
 import SignIn from './components/SignIn/SignIn-dropdown';
@@ -25,9 +25,7 @@ const particlesOptions = {
     }
   }
 //Clarifai
-const app = new Clarifai.App({
-  apiKey: "7d585dcb38dd43c6bdc72efb2b8bc84d"
- });
+
 const Home = () => {
   return (
     <div>
@@ -66,7 +64,7 @@ function App() {
       entries: userData.entries,
       joined: userData.joined
     })
-    console.log(userData);
+    console.log(user.name);
   };
   
   const routeChangeHandler = (currentRoute) => {
@@ -141,9 +139,14 @@ function App() {
   const onClickSubmitHandler = () => {
     setImageUrl(input)
 
-    app.models
-    .predict(
-      Clarifai.FACE_DETECT_MODEL, input)
+    fetch("http://localhost:4000/imageurl", {
+      method: "post",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        input: input
+      })
+    })
+    .then(response => response.json())
     .then(response => {
       if(response){
         fetch("http://localhost:4000/image", {

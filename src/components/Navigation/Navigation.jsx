@@ -3,8 +3,8 @@ import "./Navigation.style.css"
 import { Link, withRouter } from "react-router-dom";
 
 
-const Navigation = ({history, routeChange, isSignedIn, name, resetUserSession}) => {
-   
+const Navigation = ({ history, routeChange, isSignedIn,
+                    name, resetUserSession }) => {
      return (
           <div>
                
@@ -20,6 +20,7 @@ const Navigation = ({history, routeChange, isSignedIn, name, resetUserSession}) 
                                    history.push("/")
                                    resetUserSession()
                                    console.log("Signed out successfully!");
+                                  
                               }}>
                               Sign Out
                          </Link>

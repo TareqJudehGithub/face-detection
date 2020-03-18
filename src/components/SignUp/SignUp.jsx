@@ -22,7 +22,7 @@ const SignUp = ({routeChange, history, signUpUser}) => {
 
      const onSubmitSignUp = (event) => {
 
-          console.log(userName, userEmail, userPassword);
+         
           fetch("http://localhost:4000/profile/signup", {
                method: "post",
                headers: {"Content-Type": "application/json"},
@@ -34,12 +34,11 @@ const SignUp = ({routeChange, history, signUpUser}) => {
           })
           .then(response => response.json())
           .then(newUser => {
-               if(newUser){
+               if(newUser.id){
                     
                     signUpUser(newUser)      
                     console.log("Sign-Up was successful!");
                     console.log("=> homepage");
-                    console.log(userName, userEmail, userPassword);
                     routeChange("home");
                      history.push("/");              
                }
@@ -47,6 +46,8 @@ const SignUp = ({routeChange, history, signUpUser}) => {
           })
           .catch(err => console.log(err));
           event.preventDefault();
+
+          console.log(userName, userEmail, userPassword);
      };
 
      return(

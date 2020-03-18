@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import "./SignIn-dropdown.style.css"
 import {withRouter, Link} from "react-router-dom";
 
-const SignIn = ({ history, routeChange, signUpUser, name }) => {
+const SignIn = ({ history, routeChange, signUpUser }) => {
     const [signInEmail, setsignInEmail] = useState("");
     const [signInPassword, setsignInPassword] = useState("");
 
@@ -16,9 +16,9 @@ const SignIn = ({ history, routeChange, signUpUser, name }) => {
           setsignInPassword(event.target.value);
      };
      const onsubmitSigninHandler = (event) => {
-          console.log(signInEmail, signInPassword);
+         
           fetch("http://localhost:4000/profile/signin", {
-               //posting email and password to the DB:
+          //posting email and password to the DB:
                method: "post",
                headers: {"Content-Type": "application/json"},
                body: JSON.stringify({
@@ -26,7 +26,7 @@ const SignIn = ({ history, routeChange, signUpUser, name }) => {
                     password: signInPassword
                })
           })
-          .then(respone => respone.json())
+          .then(Respone => Respone.json())
           .then(user => {
                if(user.id) {   
 
@@ -34,12 +34,12 @@ const SignIn = ({ history, routeChange, signUpUser, name }) => {
                     signUpUser(user);
                     routeChange("home");                     
                     console.log(`sign-up was successful!`);
-                    alert("Welcome!")
-                    
+                    console.log("user info: " + signInEmail, signInPassword);
+                              
                }
                else{
                     alert("Error! Invalid username/password.");
-                    console.log("sign-up was failed!");
+                    console.log("sign-up failed!");
                     // routeChange("signin");
                     // history.push("/signin");
                }         
