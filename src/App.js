@@ -149,7 +149,7 @@ function App() {
     .then(response => response.json())
     .then(response => {
       if(response){
-        fetch("https://face-detection-api-server.herokuapp.com:4000/image", {
+        fetch("https://face-detection-api-server.herokuapp.com/image", {
           method: "put",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
