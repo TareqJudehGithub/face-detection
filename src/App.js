@@ -139,7 +139,7 @@ function App() {
   const onClickSubmitHandler = () => {
     setImageUrl(input)
 
-    fetch("http://localhost:4000/imageurl", {
+    fetch("https://face-detection-api-server.herokuapp.com/imageurl", {
       method: "post",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
@@ -149,7 +149,7 @@ function App() {
     .then(response => response.json())
     .then(response => {
       if(response){
-        fetch("http://localhost:4000/image", {
+        fetch("https://face-detection-api-server.herokuapp.com:4000/image", {
           method: "put",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({

@@ -23,7 +23,7 @@ const SignUp = ({routeChange, history, signUpUser}) => {
      const onSubmitSignUp = (event) => {
 
          
-          fetch("http://localhost:4000/profile/signup", {
+          fetch("https://face-detection-api-server.herokuapp.com/profile/signup", {
                method: "post",
                headers: {"Content-Type": "application/json"},
                body: JSON.stringify({
